@@ -4,35 +4,34 @@ const $btnSubmit = $('input[type="submit"]');
 
 $btnSubmit.on('click', function (e) {
   e.preventDefault();
+  console.log($('#title').val());
   let $newTitle = $('#title').val();
-  const $stars = $('input[type="radio"]').get();
+  let $stars = $('.rating').children();
+  console.log($stars);
   const newRating = () => {
     for (let i = 0; i < $stars.length; i++) {
       if ($stars[i].checked) {
-        console.log($stars[i]);
         return $stars[i].value;
       }
     }
+    return false;
   };
 
-  let $newMovie = `<li class="new-title">${$newTitle.toUpperCase()}. 
-  <span class="new-rating">Rated: ${newRating()} 
-  stars</span><span class="remove">
-  <button id="remove-btn">Remove</button></span></li>`;
-  $('ul').append($newMovie);
-  $('ul #remove-btn').on('click', function () {
-    $(this).parent().parent().remove();
-  });
-});
-
-function findValue(arr) {
-  console.log('vamos');
-  for (let i = 0; i < arr.length; i++) {
-    if (arr[i].checked) {
-      console.log(arr[i]);
-      return arr[i].value;
+  const newMovie = `<li class='new-movie'> ${$newTitle.toUpperCase()} <span id="rated">rated ${newRating()} stars</span><span><button id="remove-btn">Remove film</button></span></li>`;
+  if (!newRating()) {
+    return alert('please rate');
+  } else {
+    if ($('#title').val() === '') {
+      alert('please set movie title');
+    } else {
+      $(newMovie).appendTo('ul');
+      $('input[type="text"]').val('');
+      for (let star of $stars) {
+        star.checked = false;
+      }
+      $('ul #remove-btn').on('click', function () {
+        $(this).parent().parent().remove();
+      });
     }
-    console.log('listo');
-    return arr[i];
   }
-}
+});
