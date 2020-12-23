@@ -2,6 +2,25 @@
 
 const $btnSubmit = $('input[type="submit"]');
 
+// TOCheck:
+// const createStars = (rating) => {
+//   const stars = [];
+
+//   for (let i = 0; i < 5; i++) {
+//     stars.push(
+//       `<input checked="${
+//         i < rating
+//       }" type="radio" name="any_name" value="5" id="sel-rating-5"><label for="sel-rating-5">5</label>`
+//     );
+//   }
+
+//   return `
+//   <div class="">
+//   ${stars.join('')}
+//   </div>
+//   `;
+// };
+
 $btnSubmit.on('click', function (e) {
   e.preventDefault();
   console.log($('#title').val());
